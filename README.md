@@ -109,6 +109,34 @@ Error: NG0911
     at errorContext (node_modules/rxjs/dist/esm/internal/Observable.js:23:6)
 ```
 
+## Alternate Format Support
+
+This tool also supports Firefox-style stack frames of the form:
+
+```
+I@https://cargodigital.sbbcargo.com/de/chunk-J6REQCBN.js:3:35165
+Mc@https://cargodigital.sbbcargo.com/de/chunk-J6REQCBN.js:7:8322
+onDestroy@https://cargodigital.sbbcargo.com/de/chunk-J6REQCBN.js:7:12992
+ao@https://cargodigital.sbbcargo.com/de/chunk-J6REQCBN.js:7:91814
+JC@https://cargodigital.sbbcargo.com/de/chunk-J6REQCBN.js:7:92471
+@https://cargodigital.sbbcargo.com/de/chunk-QPFVX7ZD.js:5:7001
+_trySubscribe@https://cargodigital.sbbcargo.com/de/chunk-J6REQCBN.js:3:5260
+@https://cargodigital.sbbcargo.com/de/chunk-J6REQCBN.js:3:5206
+Rn@https://cargodigital.sbbcargo.com/de/chunk-J6REQCBN.js:3:2232
+```
+
+When remapped, these lines are rewritten to their original sources, preserving the `name@file:line:column` style (or `@file:line:column` when no function name is present).
+
+## Caching
+
+To avoid repeated network requests, fetched JavaScript files and source maps are cached on disk.
+
+- Default cache directory: `.sourcemapper-cache` (created alongside the script)
+- Override via env var: set `STACKTRACE_SOURCEMAP_CACHE_DIR` to a custom path
+
+On subsequent runs, resources are read from the cache if present, so a fully cached stacktrace requires no network access.
+
+
 ## Status
 
 This was a quick hack to get the job done. 
